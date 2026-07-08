@@ -1,0 +1,34 @@
+# Unity generated and temporary directories
+/פרוייקט/Unity Folder/FSCORD/[Ll]ibrary/
+/פרוייקט/Unity Folder/FSCORD/[Tt]emp/
+/פרוייקט/Unity Folder/FSCORD/[Oo]bj/
+/פרוייקט/Unity Folder/FSCORD/[Bb]uild/
+/פרוייקט/Unity Folder/FSCORD/[Bb]uilds/
+/פרוייקט/Unity Folder/FSCORD/[Ll]ogs/
+/פרוייקט/Unity Folder/FSCORD/[Uu]ser[Ss]ettings/
+/פרוייקט/Unity Folder/FSCORD/.vs/
+/פרוייקט/Unity Folder/FSCORD/obj/
+
+# General IDE, OS, and build files
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.class
+*.targets
+.DS_Store
+Thumbs.db
+
+# Heavy files and assets that exceed GitHub's 100MB file limit or are build outputs
+/מצגת סיום/*.mp4
+/מצגת סיום/*.wmv
+/מצגת סיום/*.rar
+/פרוייקט/Trailer/
+/פרוייקט/Assets/
+/פרוייקט/Build/

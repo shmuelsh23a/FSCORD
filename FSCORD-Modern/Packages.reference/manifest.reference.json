@@ -1,0 +1,19 @@
+{
+  "_comment": "REFERENCE ONLY - do not overwrite your project's real Packages/manifest.json. Add these via the Package Manager (Window > Package Manager) so Unity 6 resolves compatible versions automatically. Versions below are indicative.",
+  "dependencies": {
+    "com.unity.render-pipelines.universal": "URP mobile - add via 3D (URP) Mobile template",
+    "com.unity.inputsystem": "latest",
+    "com.unity.ai.navigation": "latest",
+    "com.unity.behavior": "latest",
+    "com.unity.addressables": "latest",
+    "com.unity.services.core": "latest",
+    "com.unity.services.authentication": "latest",
+    "com.unity.services.cloudsave": "latest",
+    "com.unity.services.economy": "latest",
+    "com.unity.remote-config": "latest",
+    "com.unity.services.analytics": "latest",
+    "com.unity.services.levelplay": "latest (ads mediation)",
+    "com.unity.purchasing": "latest (IAP)",
+    "com.unity.test-framework": "latest"
+  }
+}

@@ -1,0 +1,6 @@
+{
+    "name": "FSCORD.Input",
+    "rootNamespace": "FSCORD.Input",
+    "references": ["FSCORD.Core"],
+    "autoReferenced": true
+}
