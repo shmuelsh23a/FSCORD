@@ -5,8 +5,8 @@ namespace FSCORD.Core
     /// <summary>
     /// Composition root. Place on a single GameObject in the Boot scene. Creates
     /// the EventBus and the core services once, survives scene loads, and exposes
-    /// them to the rest of the game. Additional services (Save, Analytics,
-    /// Economy, Input, Ads) register here as they are implemented (backlog A4/A5).
+    /// them to the rest of the game. Additional services (Save, Analytics, Economy,
+    /// Input, Ads) register here as they are implemented (backlog A4/A5).
     /// </summary>
     [DefaultExecutionOrder(-1000)]
     public sealed class GameBootstrap : MonoBehaviour
@@ -28,6 +28,10 @@ namespace FSCORD.Core
             var pools = gameObject.AddComponent<PoolService>();
             pools.Initialize();
             Services.Register(pools);
+
+            var targets = new TargetRegistry();
+            targets.Initialize();
+            Services.Register(targets);
         }
 
         void OnDestroy()

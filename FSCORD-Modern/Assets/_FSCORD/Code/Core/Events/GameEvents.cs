@@ -48,10 +48,16 @@ namespace FSCORD.Core
     }
 
     // ---- Player fire missions (produced by the input layer, consumed by gameplay) ----
+    // Start == End for point weapons (HE, concentrated, daisy cutter, nuke).
+    // Start != End for line weapons (napalm, mines).
     public readonly struct FireMissionRequested
     {
         public readonly WeaponKind Weapon;
-        public readonly Vector3 Target;
-        public FireMissionRequested(WeaponKind weapon, Vector3 target) { Weapon = weapon; Target = target; }
+        public readonly Vector3 Start;
+        public readonly Vector3 End;
+        public FireMissionRequested(WeaponKind weapon, Vector3 start, Vector3 end)
+        {
+            Weapon = weapon; Start = start; End = end;
+        }
     }
 }

@@ -1,0 +1,10 @@
+{
+    "name": "FSCORD.Gameplay.AI.Behavior",
+    "rootNamespace": "FSCORD.Gameplay.AI.Behavior",
+    "references": ["FSCORD.Core", "FSCORD.Data", "FSCORD.Gameplay", "Unity.Behavior"],
+    "versionDefines": [
+        { "name": "com.unity.behavior", "expression": "", "define": "FSCORD_BEHAVIOR" }
+    ],
+    "defineConstraints": ["FSCORD_BEHAVIOR"],
+    "autoReferenced": true
+}

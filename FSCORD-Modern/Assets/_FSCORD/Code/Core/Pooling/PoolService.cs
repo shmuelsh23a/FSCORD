@@ -7,7 +7,8 @@ namespace FSCORD.Core
     /// Pools GameObject instances keyed by prefab. This is the single biggest
     /// runtime win over the 2015 code, which Instantiate/Destroy-ed shells,
     /// explosions, tanks and mines every frame of combat (the main GC-stutter
-    /// source on mobile). Spawn/Despawn here reuse instances instead.
+    /// source on mobile). Spawn/Despawn here reuse instances instead. Each
+    /// spawned instance carries a PooledObject so it can return itself.
     /// </summary>
     public sealed class PoolService : MonoBehaviour, IService
     {
@@ -25,16 +26,23 @@ namespace FSCORD.Core
         {
             var queue = GetQueue(prefab);
             GameObject go = queue.Count > 0 ? queue.Dequeue() : Instantiate(prefab);
+
             go.transform.SetParent(null, false);
             go.transform.SetPositionAndRotation(position, rotation);
+
+            var po = go.GetComponent<PooledObject>();
+            if (po == null) po = go.AddComponent<PooledObject>();
+            po.Bind(prefab, this);
+
             go.SetActive(true);
-            NotifySpawned(go);
+            Notify(go, spawned: true);
             return go;
         }
 
+        /// <summary>Return an instance created by Spawn() to its pool.</summary>
         public void Despawn(GameObject prefab, GameObject instance)
         {
-            NotifyDespawned(instance);
+            Notify(instance, spawned: false);
             instance.SetActive(false);
             instance.transform.SetParent(_root, false);
             GetQueue(prefab).Enqueue(instance);
@@ -60,16 +68,14 @@ namespace FSCORD.Core
             return q;
         }
 
-        void NotifySpawned(GameObject go)
+        void Notify(GameObject go, bool spawned)
         {
             go.GetComponentsInChildren(_buffer);
-            for (int i = 0; i < _buffer.Count; i++) _buffer[i].OnSpawned();
-        }
-
-        void NotifyDespawned(GameObject go)
-        {
-            go.GetComponentsInChildren(_buffer);
-            for (int i = 0; i < _buffer.Count; i++) _buffer[i].OnDespawned();
+            for (int i = 0; i < _buffer.Count; i++)
+            {
+                if (spawned) _buffer[i].OnSpawned();
+                else _buffer[i].OnDespawned();
+            }
         }
     }
 }

@@ -51,7 +51,7 @@ namespace FSCORD.Gameplay
             var wave = _ctx.Definition.waves[index];
             _ctx.EnemiesAlive += wave.Count;
             _bus.Publish(new WaveStarted(index + 1, wave.Count));
-            // TODO(A3-7): pooled spawning over wave.spawnInterval via PoolService + WaveSpawner.
+            _bus.Publish(new SpawnWaveRequested(index, wave)); // WaveSpawner instantiates the units
         }
 
         internal void EndMatch(bool victory)
