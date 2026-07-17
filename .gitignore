@@ -32,3 +32,6 @@ Thumbs.db
 /פרוייקט/Trailer/
 /פרוייקט/Assets/
 /פרוייקט/Build/
+
+# Nested git repo (the Unity 6 modernization project, tracked separately on GitHub)
+/פרוייקט/Unity Folder/FASCORD Modern/

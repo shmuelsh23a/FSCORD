@@ -1,7 +1,0 @@
-{
-    "name": "FSCORD.Input.InputSystem",
-    "rootNamespace": "FSCORD.Input.InputSystem",
-    "references": ["FSCORD.Core", "FSCORD.Input", "Unity.InputSystem"],
-    "defineConstraints": ["ENABLE_INPUT_SYSTEM"],
-    "autoReferenced": true
-}

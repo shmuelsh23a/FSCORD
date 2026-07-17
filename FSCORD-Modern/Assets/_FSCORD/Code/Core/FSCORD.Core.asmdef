@@ -1,7 +1,0 @@
-{
-    "name": "FSCORD.Core",
-    "rootNamespace": "FSCORD.Core",
-    "references": [],
-    "autoReferenced": true,
-    "allowUnsafeCode": false
-}

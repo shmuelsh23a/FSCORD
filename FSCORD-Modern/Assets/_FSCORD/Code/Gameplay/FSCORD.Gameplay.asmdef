@@ -1,6 +1,0 @@
-{
-    "name": "FSCORD.Gameplay",
-    "rootNamespace": "FSCORD.Gameplay",
-    "references": ["FSCORD.Core", "FSCORD.Data", "FSCORD.Input"],
-    "autoReferenced": true
-}
