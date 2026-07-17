@@ -75,6 +75,48 @@ uncertainty principle** — enemy presence is *probabilistic until observed*.
 Status: design lens for the Stage A fog-of-war task — record here first, per
 process rule; nothing implemented.
 
+## 2026-07-18 — Control points: capture rules (IN DEVELOPMENT)
+
+Stage A implementation of the 2015 baseline mechanic; the specific rules chosen:
+
+- **Capture by uncontested presence.** While exactly one faction has living units
+  inside a point's radius, its capture meter fills (default 8 s). Full meter →
+  the point flips to that faction.
+- **Contested = frozen.** Both factions present inside the radius freezes the
+  meter — you must clear the circle to take the point.
+- **Empty or owner-held = drain.** An abandoned or reinforced point drains any
+  attacker's progress back to zero; ownership never decays on its own.
+- **Defeat threshold is data.** A match with the HoldControlPoints victory
+  condition declares defeat when the enemy holds N points (per-match value;
+  0 = all of them). Clearing every wave still wins. Radius/capture-seconds are
+  per-point values.
+
+## 2026-07-18 — Fog of war: uncertainty model implementation (IN DEVELOPMENT)
+
+Implements the "Fog of war: uncertainty model" design note above. Decisions made
+at build time:
+
+- **Sight radius = engagement range.** In the original data the prefabs'
+  sightRange fed the engagement range, so revealed area == engageable area. No
+  separate sight stat is invented; if design later wants sight ≠ gun range, the
+  master stats table gets a new column first (process rule 1).
+- **Firing into uncertainty is allowed — at your own risk.** The old
+  "fire missions only in revealed area" choice is dropped, as the design note
+  anticipated: the player may shell a possible-location area on a gamble. No
+  hard gate anywhere in the fire path.
+- **Contacts exist from spawn.** A new enemy immediately appears as an
+  uncertainty area at its entry point (the player has intel on where the enemy
+  enters the map), not as nothing.
+- **Unobserved contacts degrade.** Last-known position with an uncertainty
+  radius that grows over time (defaults: base 10, +5/s, capped at 80 world
+  units); direct observation collapses it to an exact, identified contact.
+  Observation-quality tiers (sound vs visual) remain future work.
+- **Destruction always resolves.** A contact that dies is removed even if
+  unobserved — the strike/battle that killed it is assumed apparent.
+- **AI perception is unaffected.** Fog is player-side only; units fight with
+  their own sensors (TargetRegistry). Enemy-side fog remains a future design
+  question.
+
 ## 2026-07 — Smoke ammunition (PLANNED)
 
 Two artillery ammo types added to the damage sheet (zero damage, utility):
