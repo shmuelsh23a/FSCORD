@@ -210,8 +210,7 @@ in the table/extracted config, not here):
   trigger-diameter). A triggering tank takes blast damage and is **stopped**
   for the stop duration (it neither moves nor fires — 2015 "stops tank 5 s").
   Unspent mines persist to match end and are visible to the player (their own
-  ordnance is always known; enemy AI does not avoid them — revisit if that
-  reads as dumb once play-tested).
+  ordnance is always known).
 - **Concentrated strike** = slow motion (0.5×, 5 real seconds) plus a burst of
   6 HE-curve shells scattered uniformly inside the **actual circled area** —
   the circle gesture now measures its radius and passes it through. Slow-mo
@@ -223,8 +222,23 @@ in the table/extracted config, not here):
   (chance-of-appearance) are NOT ported — that economy belongs to the
   roguelite consumables design (Stage B); the demo grants fixed test ammo
   (concentrated 2, daisy 1, nuke 1) until then.
-- **Mines vs listening posts:** mines only trigger on and damage enemy armour;
-  friendly assets ignore them.
+**Owner rulings after first review (2026-07-18, same day — supersede the two
+provisional notes above):**
+
+- **Enemy AI vs napalm:** burn strips are VISIBLE ordnance — every tank sees
+  them and steers around them while advancing.
+- **Enemy AI vs mines:** mines are partly concealed. An enemy tank detects any
+  given mine **20% of the time** (rolled once per tank per mine and
+  remembered) — detected mines are steered around, undetected mines are driven
+  through (and trigger). **The 20% is a PLACEHOLDER** to be tuned in
+  play-testing; promote it to a master-stats-table column when formalized.
+  Own-faction ordnance is always known (friendlies never blunder into their
+  own mines by ignorance).
+- **Friendly fire is ON:** all player fire missions — detonations, napalm
+  burn, mine blasts — damage friendly units and listening posts exactly like
+  enemies, and mines trigger on ANY tank regardless of faction (listening
+  posts, being static emplacements, do not set them off). Shelling your own
+  line is a player error the simulation honours.
 
 ## 2026-07 — Smoke ammunition (PLANNED)
 
