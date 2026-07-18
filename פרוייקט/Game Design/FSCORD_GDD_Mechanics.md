@@ -197,6 +197,35 @@ art is Stage B). Mechanics-relevant decisions:
   owner-coloured ring plus an inner capture-progress arc in the capturer's
   colour — the map, not the HUD, carries the where/how-far of a flip.
 
+## 2026-07-18 — Weapon behaviours ported (IN DEVELOPMENT)
+
+All six fire missions now run their 2015 behaviours on the new engine, using
+the shipped values from the master stats table (process rule 1 — numbers live
+in the table/extracted config, not here):
+
+- **Napalm** is a line-mission burn strip: curve damage **per second** for the
+  burn duration. Burning resolves against true positions — it hurts tanks the
+  fog is hiding, same no-fire-gate philosophy as everything else.
+- **Mines** are discrete one-shot charges laid along the line (one per
+  trigger-diameter). A triggering tank takes blast damage and is **stopped**
+  for the stop duration (it neither moves nor fires — 2015 "stops tank 5 s").
+  Unspent mines persist to match end and are visible to the player (their own
+  ordnance is always known; enemy AI does not avoid them — revisit if that
+  reads as dumb once play-tested).
+- **Concentrated strike** = slow motion (0.5×, 5 real seconds) plus a burst of
+  6 HE-curve shells scattered uniformly inside the **actual circled area** —
+  the circle gesture now measures its radius and passes it through. Slow-mo
+  and pause coexist: pause always wins; slow-mo re-asserts on resume.
+- **Daisy cutter / nuke** stay instant point detonations distinguished by
+  their own damage curves.
+- **Ammo is per weapon** and finite where the table says so (napalm 5,
+  mines 5). The 2015 random drops of concentrated/daisy/nuke
+  (chance-of-appearance) are NOT ported — that economy belongs to the
+  roguelite consumables design (Stage B); the demo grants fixed test ammo
+  (concentrated 2, daisy 1, nuke 1) until then.
+- **Mines vs listening posts:** mines only trigger on and damage enemy armour;
+  friendly assets ignore them.
+
 ## 2026-07 — Smoke ammunition (PLANNED)
 
 Two artillery ammo types added to the damage sheet (zero damage, utility):
