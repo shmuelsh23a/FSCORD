@@ -164,10 +164,10 @@ Owner decision: listening posts are combatants, not scenery.
   hit it too. When destroyed, its reveal stops — the fog closes back over its
   area — making forward posts a real risk/reward placement.
 - The player's own artillery cannot hurt it (fire missions only damage enemies).
-- **Stats are provisional** (150 HP, no armour — no listening-post data existed
-  in the original extraction): add a Listening Post row to the master stats
-  table 'Planned Units' sheet and regenerate the baked config from it
-  (process rule 1).
+- **Stats recorded (2026-07-18):** 150 HP, no armour, confirmed by owner and
+  recorded as the 'Listening post' row in the master stats table
+  ('Planned Units' sheet) — the code mirrors the table (process rule 1).
+  Points-per-kill value still TBD in the row.
 - Side effect to keep in mind: as a combatant, a post inside a control point's
   radius counts as American presence (it can hold/contest a point like a
   garrison). Judged acceptable for now; revisit if it distorts capture play.
