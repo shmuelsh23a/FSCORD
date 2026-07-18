@@ -318,6 +318,28 @@ challenge** = one seeded match, delivered as data with no client update.
 - The hand-built FuldaGap demo is unchanged and stays the rehearsed fallback
   (`dailyChallengeMode` off on the demo bootstrap).
 
+## 2026-07-18 — Demo era rulesets + battlefield validation (IN DEVELOPMENT, F5/F2 P1)
+
+- **Era rulesets (demo slice of F5):** a challenge payload's `era` picks a
+  pure-data ruleset multiplied over the OriginalStats baseline. Demo set:
+  `ww2` (speed ×0.7, HP ×0.8, damage ×0.7, sight ×0.8; no tactical nuke, no
+  concentrated strike), `late_cold_war` (the baseline, identity), `future`
+  (speed ×1.4, HP ×1.1, damage ×1.2, sight ×1.5, everything fielded).
+  Era-disabled weapons ship with ZERO AMMO (shown dry on the HUD) rather than
+  vanishing. **Numbers are demo-throwaway, plausible-not-balanced** — per the
+  demo plan they are recorded here, not in the master stats table; the full
+  six-era F5 catalog gets proper master-table columns after the demo. Unknown
+  era ids fall back to the baseline.
+- **Battlefield validation:** every challenge seed walks a deterministic
+  candidate chain (seed, then derived candidates); each candidate passes
+  geometric checks (no spawn inside the defended zone) and a headless
+  first-contact simulation (wave-1 attackers advance their corridors against
+  the line, both sides trading fire on era-adjusted stats). Rejected as
+  degenerate: line unreachable within the time limit, line annihilated inside
+  60 s ("walkover"), empty waves. The generate→reject→accept funnel is logged;
+  same seed → same survivor on every client. If every candidate fails, the
+  base seed plays unvalidated (never refuse a challenge).
+
 ---
 
 ## Shipped mechanics baseline (2015 → Stage A parity)
