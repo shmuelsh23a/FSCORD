@@ -152,8 +152,9 @@ Owner direction (Shmuel, after the first play-test of rev. 1):
   line, the battle camera is movable (pan/zoom/rotate via the gesture intents;
   keyboard + scroll on desktop) and pitched at **80°** instead of straight-down.
 
-Status: implemented in the demo (red rings + opaque grey fog overlay); real HUD
-presentation is Stage A remainder work.
+Status: implemented; the owner approved the demo visuals (red rings + opaque
+grey fog overlay) in the 2026-07-18 play-test and they were promoted to the real
+presentation layer (`FogOfWarView`). A shader-based overlay is Stage B polish.
 
 ## 2026-07-18 — Listening posts are destructible (IN DEVELOPMENT)
 
@@ -171,6 +172,30 @@ Owner decision: listening posts are combatants, not scenery.
 - Side effect to keep in mind: as a combatant, a post inside a control point's
   radius counts as American presence (it can hold/contest a point like a
   garrison). Judged acceptable for now; revisit if it distorts capture play.
+
+## 2026-07-18 — HUD, menus, pause & restart (IN DEVELOPMENT)
+
+First real presentation layer (state-event driven; placeholder visuals — real UI
+art is Stage B). Mechanics-relevant decisions:
+
+- **Start gate.** A match no longer begins at scene load: a start menu publishes
+  a start request and the engine begins only then. Gives A4 (save/analytics)
+  and Stage B (run setup, loadouts) a natural pre-match hook.
+- **Pause is a full sim freeze.** `Time.timeScale = 0`; fire missions received
+  while paused are **rejected, not queued** (no pause-aim exploit), and taps
+  that land on UI never become fire gestures.
+- **Restart** (pause or end screen) tears the match down and reloads the scene;
+  persistent services survive.
+- **Information surface.** The HUD shows: wave number/total, an **aggregate
+  enemies-remaining count**, mission countdown, per-control-point ownership pips
+  (tinted toward the capturer while a flip is in progress; contested points
+  freeze, so a frozen arc/tint reads as contested), and a rate-limited CONTACT
+  toast on first sight. Note: the aggregate enemy count is global knowledge the
+  fog does not hide — judged acceptable (the original showed wave composition
+  up front); revisit if it undermines the uncertainty model.
+- **On-map control point markers.** Each point draws its capture radius as an
+  owner-coloured ring plus an inner capture-progress arc in the capturer's
+  colour — the map, not the HUD, carries the where/how-far of a flip.
 
 ## 2026-07 — Smoke ammunition (PLANNED)
 
