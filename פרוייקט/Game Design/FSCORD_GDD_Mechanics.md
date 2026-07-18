@@ -256,6 +256,24 @@ while the player watched with nothing to do). New rule:
 - With friendly fire ON, nuking your own line now loses the match on the
   spot. Working as intended.
 
+## 2026-07-18 — Player role: you play the FSCORD (RULING)
+
+Owner ruling, settling the "do blue tanks move?" question:
+
+- **All tanks, both factions, are AI-driven — always.** The player never
+  issues movement or unit orders. There is NO player unit-command layer, and
+  none will be added; de-scope any future suggestion of one.
+- **The player is the FSCORD** — the Fire Support COoRDinator the game is
+  named for. The player's levers are exactly: fire missions (the six weapons),
+  ordnance placement (mines/napalm as area denial), and sensors (listening
+  posts, later SIGINT/UAV consumables). Influence the battle; never drive it.
+- **Friendly maneuver intelligence is B3 work** (Stage B tactical AI, lands
+  alongside F2 level generation): repositioning between cover, fallback
+  lines, counterattacks — authored as Behavior graph tactics over the same
+  TankBrain primitives, for both factions. Until then friendlies keep their
+  static hold-the-line orders (a standing order, not a capability gap — the
+  brain and movers are already faction-agnostic).
+
 ## 2026-07 — Smoke ammunition (PLANNED)
 
 Two artillery ammo types added to the damage sheet (zero damage, utility):
