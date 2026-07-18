@@ -340,6 +340,38 @@ challenge** = one seeded match, delivered as data with no client update.
   same seed → same survivor on every client. If every candidate fails, the
   base seed plays unvalidated (never refuse a challenge).
 
+## 2026-07-18 — Two play modes + faction-war campaign (RATIFIED, owner design)
+
+The product's mode structure is settled (engineering scoping: feature plan §F8
++ amended §F3/§F5):
+
+- **Skirmish** — persistent roguelite. Player picks an era per run; each era
+  has its own persistent upgrade ladder; ONE consumable inventory shared
+  across eras, filtered by era availability. **Era-irrelevant consumables are
+  HIDDEN, not shown empty** (ruling; the demo's dry-weapon presentation was a
+  demo-only choice — post-demo everything era-gated hides).
+- **Campaign** — live-ops faction-war events on famous battles, scheduled on
+  the real calendar week the battle happened; overlapping history alternates
+  wars by year. Side chosen at event onset — Axis playable per genre norm,
+  **no Nazi symbols or glorification** (ratings-conscious). Victories score
+  for the side **per-capita**; winning side announced at event end; global +
+  individual rewards, plus personal milestone rewards on both sides. Event
+  runs = 10 missions, in-run upgrades each mission, event ladder zeroes at
+  event end; event consumables are a separate inventory that converts to
+  skirmish at event end through a **capped/diminishing conversion**.
+- **Runs (both modes):** generated story frame per run (public-domain corpus,
+  pool pre-generated offline per event, human-reviewed, no real names);
+  the arc fixes each mission as defensive or offensive in advance (offensive
+  needs B3 friendly-maneuver AI — defensive-only Campaign v1 is the cut
+  line); ammo/surviving-roster state carries within a run, never between;
+  **mid-run autosave + mid-run abandon are P0**.
+- **Terrain:** campaign maps derive from open geodata only (Copernicus/SRTM +
+  OSM with attribution). Google Earth/Maps data prohibited (licensing).
+- **Integrity:** event scoring and rewards are server-authoritative (Cloud
+  Code validation against the analytics trail).
+- **Economy philosophy:** relatively generous with consumables — reduce
+  hoarding stress so spending feels natural — bounded by the conversion cap.
+
 ---
 
 ## Shipped mechanics baseline (2015 → Stage A parity)
