@@ -152,8 +152,25 @@ Owner direction (Shmuel, after the first play-test of rev. 1):
   line, the battle camera is movable (pan/zoom/rotate via the gesture intents;
   keyboard + scroll on desktop) and pitched at **80°** instead of straight-down.
 
-Status: implemented in the demo (red discs + dark fog overlay); real HUD
+Status: implemented in the demo (red rings + opaque grey fog overlay); real HUD
 presentation is Stage A remainder work.
+
+## 2026-07-18 — Listening posts are destructible (IN DEVELOPMENT)
+
+Owner decision: listening posts are combatants, not scenery.
+
+- A listening post has hit points and registers as an American combatant, so
+  **enemy AI acquires and fires on it** like any other target; area weapons can
+  hit it too. When destroyed, its reveal stops — the fog closes back over its
+  area — making forward posts a real risk/reward placement.
+- The player's own artillery cannot hurt it (fire missions only damage enemies).
+- **Stats are provisional** (150 HP, no armour — no listening-post data existed
+  in the original extraction): add a Listening Post row to the master stats
+  table 'Planned Units' sheet and regenerate the baked config from it
+  (process rule 1).
+- Side effect to keep in mind: as a combatant, a post inside a control point's
+  radius counts as American presence (it can hold/contest a point like a
+  garrison). Judged acceptable for now; revisit if it distorts capture play.
 
 ## 2026-07 — Smoke ammunition (PLANNED)
 
