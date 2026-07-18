@@ -372,6 +372,32 @@ The product's mode structure is settled (engineering scoping: feature plan §F8
 - **Economy philosophy:** relatively generous with consumables — reduce
   hoarding stress so spending feels natural — bounded by the conversion cap.
 
+## 2026-07-18 — Playable skirmish runs, v1 rules (IN DEVELOPMENT, F3 wired)
+
+The F3 run framework is now playable in the demo scene (`runMode` toggle;
+daily-challenge mode required; OFF = the single-mission demo). V1 rules,
+placeholders pending the F3 economy pass:
+
+- **A run = N seeded missions** (product: 10) derived from the challenge seed;
+  each mission's battlefield goes through the full generator + validation
+  funnel. The start menu shows "MISSION k/N — <story title>".
+- **Between missions: choose resupply.** Three deterministic options from the
+  run seed (e.g. +2 napalm / +2 mines / +1 nuke) — the same run at the same
+  mission always offers the same choices; restarting the app cannot reroll.
+  V1 upgrades are ammunition only; stat/consumable upgrades join with the F3
+  reward economy.
+- **Carry:** remaining ammunition and the surviving tank line carry to the
+  next mission. **No healing, no reinforcements** — losses are permanent for
+  the run (repair trucks are future consumable territory). The next mission
+  fields at most the layout's line, never fewer than one tank.
+- **Defeat ends the run** (roguelite rule). Restarting mid-mission retries
+  the CURRENT mission with the state you entered it with (the autosave is
+  per-transition, not per-attempt).
+- **Abandon** (pause menu, run mode): ends the run, currently keeps nothing —
+  what an abandoned run keeps is a reward-policy decision for the F3 economy.
+- Autosave after every transition; a run resumes across app restarts; a
+  finished/abandoned run never resumes.
+
 ---
 
 ## Shipped mechanics baseline (2015 → Stage A parity)
