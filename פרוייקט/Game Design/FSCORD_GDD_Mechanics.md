@@ -240,6 +240,22 @@ provisional notes above):**
   posts, being static emplacements, do not set them off). Shelling your own
   line is a player error the simulation honours.
 
+## 2026-07-18 — Annihilation defeat (IN DEVELOPMENT)
+
+Owner ruling after play-test: losing every friendly unit left the match in a
+dead-air limbo (the Soviets still had to drive to the line and hold it 8 s
+while the player watched with nothing to do). New rule:
+
+- **When every friendly combatant is destroyed — tanks AND listening posts —
+  the match ends in immediate defeat.** No one is left to contest anything;
+  the line is functionally lost the moment it is annihilated.
+- The rule is per-match data (`defeatOnFriendlyAnnihilation`, default ON) and
+  only arms once friendlies have existed, so a future **artillery-only "last
+  stand" mode** (player fights blind with fire missions alone — all sensors
+  dead means full fog) stays possible by turning it off.
+- With friendly fire ON, nuking your own line now loses the match on the
+  spot. Working as intended.
+
 ## 2026-07 — Smoke ammunition (PLANNED)
 
 Two artillery ammo types added to the damage sheet (zero damage, utility):
