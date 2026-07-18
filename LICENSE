@@ -1,0 +1,27 @@
+FSCORD — Battle for the Fulda Gap
+Copyright (c) 2015-2026 Shmuel Shmuel (github.com/shmuelsh23a). All rights reserved.
+
+PROPRIETARY — NO LICENSE GRANTED.
+
+This repository and its contents — source code, game design documents, game
+data, artwork, tooling, and backend scripts — are the proprietary property of
+the copyright holder. No part of this repository may be copied, modified,
+distributed, sublicensed, publicly displayed, reverse-engineered, or used to
+train machine-learning models, in whole or in part, without prior written
+permission from the copyright holder.
+
+Access to this repository (including access granted for evaluation or due
+diligence) does not transfer any rights and does not constitute a license of
+any kind.
+
+THIRD-PARTY MATERIALS (excluded from the above, under their own licenses):
+
+- Assets/_FSCORD/Modules/FuldaGapReal.* — battlefield data derived from
+  OpenStreetMap (© OpenStreetMap contributors, ODbL 1.0) and from Terrain
+  Tiles on AWS (Mapzen terrarium; USGS/SRTM and other open elevation
+  sources). The derived module ships with its attribution embedded and this
+  notice does not restrict rights granted by those licenses.
+- Unity engine packages referenced by the project are licensed by Unity
+  Technologies under their own terms and are not part of this repository.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
