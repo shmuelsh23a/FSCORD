@@ -117,6 +117,44 @@ at build time:
   their own sensors (TargetRegistry). Enemy-side fog remains a future design
   question.
 
+**SUPERSEDED in part by the rev. 2 entry below** (owner play-test feedback):
+the time-growth model and contacts-from-spawn are replaced by the sensor model;
+the other decisions (sight = engagement range, no fire gate, destruction
+resolves, AI unaffected) stand.
+
+## 2026-07-18 — Fog of war rev. 2: full-map fog + hearing + shrinking red circle (IN DEVELOPMENT)
+
+Owner direction (Shmuel, after the first play-test of rev. 1):
+
+- **Full-map fog.** The entire map is under fog of war; only friendly *sight*
+  areas are revealed. An enemy outside every sensor shows **nothing at all**
+  (rev. 1's "contacts exist from spawn" is dropped).
+- **Two-range sensor model.** Every friendly sensor (vehicles, listening posts;
+  later SIGINT and recon UAVs as consumables) has:
+  - **sight** = visual range (unchanged: = engagement range from the stats);
+    full detection — exact position and identity;
+  - **hearing = 2 × sight**, deliberately NOT limited by line of sight; yields
+    only an approximate location. (No LOS occlusion exists yet on the flat
+    demo map; when terrain arrives, sight becomes LOS-limited and hearing
+    stays omnidirectional.) The 2× is a global rule, not a per-unit stat; if
+    design later wants per-unit hearing, the master stats table gets a column
+    first (process rule 1).
+- **The red circle.** A heard-but-unseen enemy is a red possible-location
+  circle whose radius **shrinks as the enemy closes** from the hearing edge
+  (max radius, default 50 units) to the sight edge (min radius, default 6),
+  where it resolves into a visible unit.
+- **Heisenberg placement.** The enemy is *somewhere inside* the circle, never
+  at its centre: the circle is anchored off the true position by a random
+  offset (up to 75% of the radius), re-rolled each time a contact re-enters
+  the heard state. Firing into the circle can still land on the real tank —
+  damage always resolves against true positions (no fire gate, as before).
+- **Camera.** Because the player can shell heard contacts beyond the visible
+  line, the battle camera is movable (pan/zoom/rotate via the gesture intents;
+  keyboard + scroll on desktop) and pitched at **80°** instead of straight-down.
+
+Status: implemented in the demo (red discs + dark fog overlay); real HUD
+presentation is Stage A remainder work.
+
 ## 2026-07 — Smoke ammunition (PLANNED)
 
 Two artillery ammo types added to the damage sheet (zero damage, utility):
