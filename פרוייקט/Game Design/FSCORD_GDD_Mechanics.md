@@ -288,6 +288,36 @@ buff), **fast smoke dischargers** (defensive auto-smoke on targeted tanks),
 **repair trucks** (spawnable support unit, heals armour). Detail:
 `FSCORD_StageB_FeaturePlan.md` §"Planned content backlog".
 
+## 2026-07-18 — Daily challenge: seeded generated battlefields (IN DEVELOPMENT, F1+F2 P0)
+
+The first live-ops content unit ships (investor-demo build): a **daily
+challenge** = one seeded match, delivered as data with no client update.
+
+- **Delivery:** Remote Config key `liveops.dailyChallenge` carries
+  `{seed, era, label, modifiers{difficulty, waves}}`. Offline/unreachable
+  backend falls back to a **date-derived seed** — same date, same battlefield,
+  on every client. The start menu shows the challenge label; a challenge
+  payload arriving after the battlefield is built applies next launch.
+- **Generation:** the battlefield is assembled deterministically from the
+  seed (same grammar as FuldaGap: southern friendly line, 3-6 northern spawn
+  lanes with approach corridors, 3-5 midfield control points anchored on the
+  corridors, 1-2 listening posts, line CP at the objective). Same seed →
+  identical battlefield, any machine.
+- **Waves as budget:** wave composition is bought from a difficulty budget
+  priced in master-table `pointsValue` (T-55 100 / T-62 200 / T-72 500);
+  the baseline wave budget equals the original FuldaGap wave (1700). Later
+  waves get +12% budget each and a heavier mix. `modifiers.difficulty`
+  multiplies the budget (clamped 0.25-4); `modifiers.waves` sets wave count
+  (1-8, default 3). Time limit keeps the original pacing: 100 s per wave.
+- **Defeat rule for generated maps:** generated control points sit ON the
+  approach lanes (FuldaGap's three sit off-route), so the FuldaGap rule
+  "one enemy capture = defeat" would end matches in transit. Ruling:
+  **generated matches are lost when the enemy holds a MAJORITY of control
+  points** (total/2 + 1, the line CP included). FuldaGap keeps its original
+  rule. Placeholder pending play-test tuning.
+- The hand-built FuldaGap demo is unchanged and stays the rehearsed fallback
+  (`dailyChallengeMode` off on the demo bootstrap).
+
 ---
 
 ## Shipped mechanics baseline (2015 → Stage A parity)
