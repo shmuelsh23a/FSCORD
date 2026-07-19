@@ -398,6 +398,31 @@ placeholders pending the F3 economy pass:
 - Autosave after every transition; a run resumes across app restarts; a
   finished/abandoned run never resumes.
 
+## 2026-07-19 — Terrain blocks sight and direct fire (real-relief maps)
+
+Owner-reported after the first real-terrain play-test: units saw and fired
+straight through hills. Ruling — on maps with relief (open-geodata modules),
+the terrain participates in perception and gunnery:
+
+- **Sight requires line of sight.** A fog sensor (friendly unit / listening
+  post) only DETECTS an enemy inside its sight radius if the relief does not
+  block the line between them (sight line at ~2.5 units eye height, so low
+  crests don't flicker it). An enemy inside sight radius but LOS-blocked is
+  a HEARD contact with the tightest uncertainty circle — close and loud,
+  just unseen behind the crest.
+- **Hearing is unchanged** — explicitly non-LOS (rev. 2 uncertainty model):
+  hills muffle nothing.
+- **Direct fire requires line of sight.** A tank does not stop and engage a
+  target it cannot see over the relief; it keeps advancing until the terrain
+  opens up. Applies to both factions symmetrically (the M-60 line benefits
+  when hull-down, suffers when the approach is dead ground).
+- **Fire missions are unaffected** — player artillery is indirect by nature;
+  firing into dead ground is exactly the counter to it.
+- **Flat maps are byte-identical in behaviour** (LOS is always clear when the
+  world has no relief), so FuldaGap classic and generated maps play as before.
+- Presentation follows the same day: control-point rings/arcs and napalm
+  strips drape per-vertex over the relief instead of clipping into slopes.
+
 ---
 
 ## Shipped mechanics baseline (2015 → Stage A parity)
