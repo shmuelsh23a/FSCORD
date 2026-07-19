@@ -423,6 +423,68 @@ the terrain participates in perception and gunnery:
 - Presentation follows the same day: control-point rings/arcs and napalm
   strips drape per-vertex over the relief instead of clipping into slopes.
 
+## 2026-07-19 — Six-era master table: M60A3 anchor + rulings (RATIFIED, owner design)
+
+The full F5 pass replaces the demo-throwaway era multipliers. Numbers live in
+`Project FSCORD.xlsx` (as always); research, per-unit derivations and the
+computed proposal live in `FASCORD Modern/docs/EraMasterTable_Proposal.md`.
+
+**The anchor ruling:** the **M60A3 TTS is held at index 100 in every stat
+column**; every unit in all six eras is indexed against it on absolute physical
+scales — Armour = frontal RHA-e / 250 mm; Damage = penetration at era-typical
+combat range / 400 mm (KE or HEAT, whichever is the type's primary killer);
+Hit = fire-control band F0–F6 (WW2 telescopic 0.35 → ~2035 AI-assisted 0.95;
+M60A3 = 0.70); Sight = effective engagement range / 2000 m; Speed = road km/h
+/ 48; HP = passive survivability judgment (weight, ammo layout, crew capsule);
+Points = one formula over the other stats — never hand-set. The anchor's
+in-game row is unchanged by construction. Rosters are per-state (3–5 units),
+so campaign events can pit any two states of an era (UK vs Germany '44,
+US vs Japan '44...). Future-era (~2035) rows are speculative by declaration.
+
+**Combat-model rulings:**
+- **Per-era damage scale:** absolute indexing makes early-era time-to-kill
+  balloon (a WW2 Sherman needs 30+ hits on a Pz IV). The master table keeps
+  the pure index; `EraCatalog` carries a per-era `damageScale` (data) tuned so
+  within-era TTK matches the Late-Cold-War baseline. Validator sim verifies.
+- **Damage floor:** damage resolves as `max(1, damage − armour)` — under-gunned
+  shots are near-useless (emergent no-pen stays meaningful) but never zero.
+- **Legacy numbers superseded:** the original five tanks are re-derived under
+  the same methodology — consistency over grandfathering.
+- **Wave budget rebases per era:** the generator's flat 1700-point base is
+  replaced by the cost of each era's canonical wave mix in NEW points.
+- **Loader type is modeled:** autoloader = fixed load cycle (immune to fatigue
+  and motion); manual = burst advantage that decays. Column in the table.
+- **Horsepower affects climbing:** hp/t is a table column; on relief maps,
+  slope speed scales with it.
+- **Speed derives from road km/h** — the extracted 2015 NavMesh speeds
+  (M1 = 3.5 u/s) are placeholder artifacts, superseded.
+
+**Progression (owner design, new):**
+- **Per-tank run XP:** each tank accumulates XP within a run; XP improves its
+  speed, loading, aiming and effective range by ~5–15%, always within the
+  era-relative scale. XP lives and dies with the tank (losses stay permanent).
+- **Event upgrades:** 1–10% stat improvements offered as upgrades, accumulated
+  over the course of a campaign event.
+
+**Capabilities tracked now, mechanics later:**
+- **APS** (Trophy / StrikeShield / GL-6 / Afganit / soft-kill Shtora-GALIX):
+  a column, NOT baked into HP or Armour; the mechanic ships together with
+  infantry ATGMs (F6/F7), where APS defeats incoming ATGM/top-attack shots.
+- **Gun-launched ATGMs** (Kobra / Svir / Refleks / GP125 / Sprinter): column;
+  ships with the same F6/F7 milestone.
+- **Smoke dischargers:** per-tank tube count (+ Soviet TDA exhaust smoke);
+  mechanic arrives in the polish phase.
+- **Machine guns:** every tank row references coax/flex MG family rows;
+  standalone MG rows enter 'Planned Units' for F7 infantry (damage-vs-infantry
+  derived when infantry HP exists).
+
+**Roster rulings:** Vietnam's 4th US slot is the M67A2 Zippo flame tank (the
+M60 never served in Vietnam); Korea includes the IS-2 as a rare "boss" (no
+confirmed tank duels — fiction-flagged) and the Cromwell as a limited unit;
+Late Cold War includes France (AMX-30B2); Post Cold War includes the T-72B3
+as an epilogue variant; the Future speculative tier (MGCS/CAPINT, RCV-L, T-14)
+ships as rare/prototype units.
+
 ---
 
 ## Shipped mechanics baseline (2015 → Stage A parity)
