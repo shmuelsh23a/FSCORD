@@ -583,6 +583,50 @@ STARTING POSITIONS must match the mission role — a defending blue force
 falls back when overrun; an attacking blue force advances. Recorded now so
 the B3 design starts from it.
 
+## 2026-07-20 — F3 economy pass: run XP, tank purchases, event upgrades (IN DEVELOPMENT; implements rulings 5-6 of 2026-07-19 + onset ruling 2)
+
+The ratified progression rulings become mechanics. Two currencies plus one
+veterancy track, all deterministic, all autosaved with the run. Every number
+below is an F3-pass TUNING PLACEHOLDER pending play-test.
+
+- **Per-tank run XP (ruling 5):** each friendly tank is now an identity in the
+  run's carried roster (unit + XP), not an aggregate count. XP = the tank's
+  OWN GUN KILLS, 1 XP per kill — player artillery kills deliberately do NOT
+  feed a tank's veterancy (fire support is the player's contribution; the
+  crew's is their own gunnery). Thresholds 1 / 3 / 6 kills → one multiplier
+  of +5% / +10% / +15% on exactly the four ruled stats: speed, loading (rate
+  of fire), aiming (accuracy, capped at 1.0) and effective range. XP lives
+  and dies with the tank; nothing carries between runs.
+- **Requisition — buy tanks between missions (onset ruling 2, first half):**
+  every destroyed enemy pays its MASTER-TABLE POINTS into the run's
+  requisition, any cause of death (artillery counts — it is meant to be the
+  main killer). Between missions the resupply screen gains a TANK SHOP: the
+  defender state's era roster, cheapest first, at points × 8. Purchases join
+  the carried roster green (0 XP); the roster caps at 8; the next mission
+  fields roster tanks up to the layout's line size, extras wait in reserve
+  (carried, never at risk). One well-fought mission affords roughly one mid
+  tank — events start weak on the cheapest chassis and climb.
+- **Event upgrades — improve starting tanks between runs (ruling 6 + onset
+  ruling 2, second half):** a finished campaign run banks its event ladder
+  points (kills) into the event's PERSISTENT upgrade ladder — Completed and
+  Failed alike (partial runs count, mirroring score submission); Abandoned
+  banks nothing (2026-07-18 abandon ruling). The run summary screen spends
+  them: four tracks — FIREPOWER (damage), PROTECTION (armour + HP), LOADER
+  DRILLS (rate of fire), GUNNERY OPTICS (accuracy + range) — five tiers of
+  +2% each, i.e. the ruled 1-10% band; tier N costs 40×N points. Tracks
+  apply to the event's STARTING tanks (and purchases) of every later run of
+  that event. The ladder zeroes at event end (§F8); the zero-out trigger is
+  the server event-end step, an F8 follow-up. Stored locally per event
+  (`fscord_event_upgrades.json`); server mirror rides Cloud Save post-demo.
+- **Scope call, flag for owner:** the tank shop and per-tank XP run in
+  SKIRMISH runs too (same rules, era-default defender state); event upgrade
+  ladders are campaign-only. Skirmish's own per-era persistent ladders remain
+  future work (§F8 skirmish meta).
+- **Interplay note:** veterancy and event upgrades multiply (a max-XP tank
+  under max drills loads ~26% faster than green); damage/armour/HP are
+  event-upgrade territory only — XP never scales them (ruling 5's stat list
+  is exhaustive).
+
 ---
 
 ## Shipped mechanics baseline (2015 → Stage A parity)
