@@ -510,7 +510,11 @@ see the rulings block at the end of this entry.
 - **Scheduling is live:** the active event is picked from the fetched
   `liveops.eventCalendar` by ISO week + year alternation + expiry (baked
   in-project calendar as the offline fallback) — no hand-assigned event ids
-  outside dev hooks.
+  outside dev hooks. **Schema-upgrade rule (2026-07-20):** the live payload
+  is authoritative for everything it carries, but fields it predates
+  (sideStates, historicAttacker) are backfilled per event id from the baked
+  shipped copy — an old production payload can delay a new field, never
+  mask it.
 - **Runs now flow through the IMissionGateway seam** (F3 architecture
   promise): the run layer launches each mission through the gateway and
   receives its result — the scene flow is an implementation detail behind it.
@@ -558,10 +562,16 @@ Owner design for how campaign runs evolve over an event's life:
   template. Implementation: `RunController.PlanRoleArc(missionCount,
   attacksAtOnset, scoreGap)` — deterministic; first phase grows from ⅓ to ⅔
   of the run with the normalized gap, hold ≈ ⅙, remainder tails.
-  **Dependency:** the client has no war-standings feed yet (server-side
-  per-capita totals) — `eventScoreGap` rides RunDefinition and is 0 until
-  that lane lands (F8 follow-up), so today every run plays the historic-onset
-  template.
+  **War-standings feed (same day, IN DEVELOPMENT):** a read-only Cloud Code
+  endpoint (`FSCORD_GetEventStandings`) reports each side's per-capita total
+  from the score leaderboards; the client fetches it at event resolve and
+  waits up to ~4 s at run-plan time. **Gap formula (design knob):** the
+  relative per-capita lead over the strongest other side —
+  (mine − theirs) / max(mine, theirs), clamped to ±1 — so a 2:1 lead reads
+  +0.5 at any score scale; an unopposed side reads +1; a silent scoreboard
+  (event just opened, or offline) reads 0 = the historic-onset template.
+  Endpoint deploys once (registry-independent); until the owner publishes
+  it, the null stand-in keeps every arc on the historic template.
 - **Story frames keep supplying titles/briefs;** campaign mission ROLES come
   from the arc (skirmish runs keep the frames' authored roles). Pools may
   now also author 'hold' roles.
