@@ -485,6 +485,44 @@ Late Cold War includes France (AMX-30B2); Post Cold War includes the T-72B3
 as an epilogue variant; the Future speculative tier (MGCS/CAPINT, RCV-L, T-14)
 ships as rare/prototype units.
 
+## 2026-07-20 — Campaign onset: side choice, per-state matchups, event terrain (IN DEVELOPMENT, F8)
+
+The campaign-mode client wiring lands (§F8 rules unchanged — this implements
+them). PENDING OWNER NOD on the three derivation calls marked below.
+
+- **Side is chosen at event onset and FIXED for the event** (§F8, ratified
+  2026-07-18): a chooser screen appears once per event, before its first run;
+  the choice persists locally (and later server-side) — every run of that
+  event fights for it, and switching sides mid-event is not offered
+  (per-capita scoring would invite side-hopping). Abandoning or finishing a
+  run never re-opens the choice.
+- **Sides map to real states** (`sideStates` in the battle registry, e.g.
+  allies→USA, axis→Germany): the player's state DEFENDS (defensive-only
+  Campaign v1), the opposing state attacks. Older payloads without the
+  mapping fail soft to the era's default matchup.
+- **Any state pair becomes a matchup** derived from the master table.
+  DESIGN CALLS pending owner nod:
+  1. attacker roster = every unit the state fields in the era, wave weights
+     points-ranked on a linear ramp (cheapest leans early, priciest leans
+     late) — hand-tuned era rosters remain the reference shape;
+  2. defender line = the state's MEDIAN-points unit ("the mainstay" —
+     reproduces the hand-picked USA lines);
+  3. damageScale is re-bisected PER MATCHUP to the same original-FuldaGap
+     kill-rate target (TTK parity holds for any pair), and the 6/3/1 wave
+     budget is re-priced in the pair's own points.
+- **Event terrain by region id:** a campaign event's `terrainRegionId`
+  resolves its baked open-geodata module (+relief) from the in-project module
+  library; events without terrain (overlord, pending coastal grammar) play on
+  generated battlefields. The skirmish/daily paths are unchanged.
+- **Scheduling is live:** the active event is picked from the fetched
+  `liveops.eventCalendar` by ISO week + year alternation + expiry (baked
+  in-project calendar as the offline fallback) — no hand-assigned event ids
+  outside dev hooks.
+- **Runs now flow through the IMissionGateway seam** (F3 architecture
+  promise): the run layer launches each mission through the gateway and
+  receives its result — the scene flow is an implementation detail behind it.
+  A run resumed mid-resupply re-offers the interrupted choice.
+
 ---
 
 ## Shipped mechanics baseline (2015 → Stage A parity)
