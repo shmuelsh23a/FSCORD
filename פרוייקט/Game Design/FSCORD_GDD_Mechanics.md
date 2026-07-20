@@ -485,10 +485,11 @@ Late Cold War includes France (AMX-30B2); Post Cold War includes the T-72B3
 as an epilogue variant; the Future speculative tier (MGCS/CAPINT, RCV-L, T-14)
 ships as rare/prototype units.
 
-## 2026-07-20 — Campaign onset: side choice, per-state matchups, event terrain (IN DEVELOPMENT, F8)
+## 2026-07-20 — Campaign onset: side choice, per-state matchups, event terrain (IN DEVELOPMENT, F8; derivation rulings RATIFIED same day)
 
 The campaign-mode client wiring lands (§F8 rules unchanged — this implements
-them). PENDING OWNER NOD on the three derivation calls marked below.
+them). The three derivation calls were put to the owner and RULED same day —
+see the rulings block at the end of this entry.
 
 - **Side is chosen at event onset and FIXED for the event** (§F8, ratified
   2026-07-18): a chooser screen appears once per event, before its first run;
@@ -500,16 +501,8 @@ them). PENDING OWNER NOD on the three derivation calls marked below.
   allies→USA, axis→Germany): the player's state DEFENDS (defensive-only
   Campaign v1), the opposing state attacks. Older payloads without the
   mapping fail soft to the era's default matchup.
-- **Any state pair becomes a matchup** derived from the master table.
-  DESIGN CALLS pending owner nod:
-  1. attacker roster = every unit the state fields in the era, wave weights
-     points-ranked on a linear ramp (cheapest leans early, priciest leans
-     late) — hand-tuned era rosters remain the reference shape;
-  2. defender line = the state's MEDIAN-points unit ("the mainstay" —
-     reproduces the hand-picked USA lines);
-  3. damageScale is re-bisected PER MATCHUP to the same original-FuldaGap
-     kill-rate target (TTK parity holds for any pair), and the 6/3/1 wave
-     budget is re-priced in the pair's own points.
+- **Any state pair becomes a matchup** derived from the master table —
+  derivation rules per the owner rulings below.
 - **Event terrain by region id:** a campaign event's `terrainRegionId`
   resolves its baked open-geodata module (+relief) from the in-project module
   library; events without terrain (overlord, pending coastal grammar) play on
@@ -522,6 +515,63 @@ them). PENDING OWNER NOD on the three derivation calls marked below.
   promise): the run layer launches each mission through the gateway and
   receives its result — the scene flow is an implementation detail behind it.
   A run resumed mid-resupply re-offers the interrupted choice.
+
+**Owner rulings on the matchup derivation (2026-07-20, RATIFIED):**
+
+1. **Wave weights — RATIFIED as proposed.** Derived attacker rosters use
+   every unit the state fields in the era, wave weights points-ranked on a
+   linear ramp (cheapest leans early, priciest leans late). Hand-tuned era
+   rosters remain the reference shape for skirmish.
+2. **Line unit = the state's CHEAPEST tank, not the median.** Roguelite
+   principle: **events start weak and you improve.** The intended economy
+   (F3 pass): the player **buys more tanks between missions of the same
+   run**, and **improves the starting tanks between runs of the same
+   event** — so opening an event on the weakest chassis is the point, not a
+   bug. Consequence: EVERY campaign matchup is derived — including the side
+   whose states match the era's skirmish default (skirmish keeps its
+   hand-picked mainstay lines; campaign starts both sides weak).
+3. **NO per-matchup damage re-normalization.** The era's ratified
+   damageScale (2026-07-19 anchor calibration) applies to every matchup in
+   the era, unchanged. Matchup asymmetry is INTENDED: different sides and
+   different eras must feel different — no reverting to the mean. It is
+   fine that a Sherman needs many shots to kill a Tiger; **the player's
+   fire support is meant to be the main tank-killer**, and a hard-to-crack
+   enemy makes the player work their own guns harder. (The 6/3/1 wave
+   budget IS still priced in the derived roster's own points — that is
+   wave-size bookkeeping, not feel normalization.)
+
+## 2026-07-20 — Event run progression: historic onset, role arcs, gap-driven mix (RATIFIED, owner design)
+
+Owner design for how campaign runs evolve over an event's life:
+
+- **Events open like the historic battle** — one side attacks, one defends
+  (registry `historicAttacker`: bulge → axis, overlord → allies). At event
+  start your runs open in your side's historic role.
+- **Each run is a phase arc, not a flat list:** defend → hold → counterattack,
+  or attack → hold → defend. **Hold** is a new mission role — the static
+  middle phase (defence of the current positions; plays as a defend mission
+  until the blue AI distinguishes them, see below).
+- **The war standings shape the mix per run:** the WINNING side's runs open
+  with attacks and transition to defence LATER the larger its lead — a
+  runaway lead means most of the run is attacking; the losing side defends
+  first and counterattacks late. Dead even → the historic onset decides the
+  template. Implementation: `RunController.PlanRoleArc(missionCount,
+  attacksAtOnset, scoreGap)` — deterministic; first phase grows from ⅓ to ⅔
+  of the run with the normalized gap, hold ≈ ⅙, remainder tails.
+  **Dependency:** the client has no war-standings feed yet (server-side
+  per-capita totals) — `eventScoreGap` rides RunDefinition and is 0 until
+  that lane lands (F8 follow-up), so today every run plays the historic-onset
+  template.
+- **Story frames keep supplying titles/briefs;** campaign mission ROLES come
+  from the arc (skirmish runs keep the frames' authored roles). Pools may
+  now also author 'hold' roles.
+- **B3 gate unchanged:** Offensive missions still coerce to Defensive until
+  the friendly-maneuver AI ships (sanctioned Campaign-v1 cut); Hold plays.
+
+**Blue-force AI note (PLANNED, lands with B3 blue AI design):** blue AI and
+STARTING POSITIONS must match the mission role — a defending blue force
+falls back when overrun; an attacking blue force advances. Recorded now so
+the B3 design starts from it.
 
 ---
 
