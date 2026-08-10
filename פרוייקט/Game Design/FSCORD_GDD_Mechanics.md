@@ -629,6 +629,64 @@ below is an F3-pass TUNING PLACEHOLDER pending play-test.
 
 ---
 
+## 2026-08-10 — Real-terrain difficulty pass: the validation funnel gets teeth (IN DEVELOPMENT; owner call 2026-08-10)
+
+The F2 validation funnel ("the AI validated this map before you ever saw it")
+was not validating anything on full-size maps. Three defects, one pass.
+
+- **The walkover window was dead code.** Degeneracy was "line annihilated
+  within 60 s" measured from the START OF THE MATCH. On a 900-unit map the
+  approach alone burns ~55 s before a shot is fired, so no layout could
+  trip it — and real-terrain modules, which are all 900 units, never tripped
+  it at all. The window is now time UNDER FIRE (from first contact). This is
+  what let challenge seed 20260722 ship as a daily while routing the
+  Ardennes line unflagged.
+- **Baked geography never went through the funnel.** A real-terrain module's
+  layout is content and cannot be re-rolled, so the module simply played
+  whatever the payload asked for. It now runs the same funnel with the
+  candidates it *does* have: the WAVE DRAWS the seed buys, and — only when
+  no draw on that ground is playable — a stepped-down difficulty
+  (4 steps × 0.85, deterministic in every input, so every client walks the
+  identical chain and lands on the identical mission). Geography is never
+  moved.
+- **The sim judged a line nobody fields.** It manned every line position in
+  the layout; an F3 run fields its CARRIED ROSTER, which after casualties is
+  fewer. The sim now takes the fielded count.
+
+**Two bars, deliberately different.** The raw verdict stays DEGENERACY — is
+this layout broken? — a 60 s window under fire. The FUNNEL's shipping bar is
+stricter: the line must HOLD 90 s under fire before a draw may ship. The line
+is never required to WIN. That is not a softening, it is the design: this sim
+fields the tank line alone, and the player's fire support is the main
+tank-killer, so a line that cannot beat a wave unaided is correct (the 2015
+line's dps barely scratches a heavy — demanding it survive rejected almost
+every honest map). What the line owes the player is TIME. Both numbers are
+tuning placeholders.
+
+**What the sim still cannot answer.** It has no player in it, so it certifies
+"not degenerate, holds long enough to be a fight" — never "winnable". Real
+balance for a shipped daily needs the in-editor play-test.
+
+**Owner call (2026-08-10):** the shipped daily could not be held by the
+Ardennes line — 4 tanks annihilated 57 s after contact with 11 of 14
+attackers still up; 5, 6 and 7 defenders also lose; only 8 holds. Two levers
+existed. The DIFFICULTY lever ships now (above). The DEFENDER lever — letting
+a bought roster deploy past the module's baked line size — is NOT taken here:
+the ratified reserve rule (2026-07-20, "fields roster tanks up to the
+layout's line size, extras wait in reserve") stands until amended, and
+growing a line on real terrain needs the event compiler to bake genuine extra
+positions from the ground rather than extrapolate tanks into a river. Open
+consequence, recorded for that amendment: while the rule stands, requisition
+can only REPLACE casualties on a baked module, never out-scale the wave ramp,
+so the shop's "buy more tanks" promise is a casualty-replacement promise.
+
+Numbers (easing steps/factor, the 60 s window) are TUNING PLACEHOLDERS.
+Harness: `BalanceProbeTests` sweeps a shipped module across defender counts
+and difficulties and prints the grid — balance decisions on real terrain
+should quote it rather than guess.
+
+---
+
 ## Shipped mechanics baseline (2015 → Stage A parity)
 
 Gesture fire missions (HE / concentrated / napalm / daisy cutter / mines / nuke),
