@@ -6,5 +6,5 @@ the single canonical copy; change those rules there, not in this file.
 
 The active project is **`FASCORD Modern/`**. Its operating manual is
 `FASCORD Modern/AGENTS.md`; its current state is `FASCORD Modern/HANDOFF.md`.
-Claude-Code-specific notes for the project (settings, subagents, the Unity MCP
-relay) are in `FASCORD Modern/CLAUDE.md`.
+Claude-Code-specific notes for the project (settings, subagents, and the now-
+deprecated Unity MCP relay) are in `FASCORD Modern/CLAUDE.md`.

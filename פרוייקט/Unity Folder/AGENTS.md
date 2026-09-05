@@ -42,6 +42,8 @@ the dated GDD entry in the parent repo.
 - Secrets live only in a gitignored `.env`. Never put a key or token on a
   command line, in a settings file, or in an MCP `--env` flag — pass an
   environment-variable reference instead.
-- `.mcp.json` here loads the **Unity editor relay MCP** (`unity` server),
-  which drives a **running** editor. Batchmode test runs need the editor
-  **closed** (project lock). Pick one mode per task; don't fight it.
+- `.mcp.json` here still loads the **Unity editor relay MCP** (`unity`
+  server), which is **DEPRECATED** — Unity replaced the in-Editor MCP server
+  on 2026-07-20 with the standalone Unity CLI. The CLI is not installed on
+  this machine yet. Batchmode test runs need the editor **closed** (project
+  lock); pick one mode per task and don't fight it.
