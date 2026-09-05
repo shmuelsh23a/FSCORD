@@ -687,6 +687,38 @@ should quote it rather than guess.
 
 ---
 
+## 2026-09-05 — Campaign loop verified live end to end (VERIFICATION, no mechanics changed)
+
+No mechanics changed. Recorded because it is the first end-to-end confirmation
+of the ratified campaign design running against production, and because one
+measurement bears directly on a pending amendment.
+
+**Confirmed in play**, two full bulge-2026 runs, editor against production:
+- Side choice at onset, fixed for the event (§F8) — chooser shown, persisted.
+- Per-capita server-authoritative scoring — **369 pts ACCEPTED** into
+  `event-bulge-2026-allies`, 36.9/mission against the 600/mission cheat bound.
+- The war-standings feed returning a silent scoreboard as gap 0, so the run
+  planned on the historic-onset template exactly as ruled.
+- **"Events start weak"** — the derived matchup fielded the **M3A1 Stuart**,
+  the USA's cheapest WW2 tank, as the defender line. The ruling is visible in
+  play, not just in code.
+- Event upgrade ladders persisting and ACCUMULATING across runs (369 → 667).
+- The between-mission tank shop pricing at master-table points × 8
+  (Stuart 72 · Sherman 75mm 160 · Sherman 76mm 200 · Pershing 248).
+
+**NOT confirmed:** per-tank run XP. XP is a tank's OWN gun kills and artillery
+kills deliberately do not feed veterancy (ruling 5), so an artillery-only
+autoplayer leaves every tank at 0. Only a human play-test can exercise it.
+
+**MEASUREMENT FOR THE PENDING DEFENDER-LEVER AMENDMENT (2026-08-10 deferral).**
+A clean 10-mission run banked **8,395 requisition without losing a tank** —
+about **116 Stuarts of income** against a roster cap of 8 and a line of 4. The
+currency has nowhere to go beyond replacing casualties. Whichever way the
+reserve rule is amended, the income:sink ratio has to be re-tuned with it; the
+present numbers are placeholders and are far out.
+
+---
+
 ## Shipped mechanics baseline (2015 → Stage A parity)
 
 Gesture fire missions (HE / concentrated / napalm / daisy cutter / mines / nuke),

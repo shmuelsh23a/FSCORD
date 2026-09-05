@@ -3,7 +3,7 @@
     "unity": {
       "type": "stdio",
       "command": "unity",
-      "args": ["mcp"]
+      "args": ["mcp", "--project-path", "FASCORD Modern"]
     }
   }
 }
