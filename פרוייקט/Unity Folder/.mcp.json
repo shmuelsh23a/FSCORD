@@ -2,8 +2,8 @@
   "mcpServers": {
     "unity": {
       "type": "stdio",
-      "command": "C:\\Users\\shmue\\.unity\\relay\\relay_win.exe",
-      "args": ["--mcp"]
+      "command": "unity",
+      "args": ["mcp"]
     }
   }
 }

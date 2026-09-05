@@ -42,8 +42,11 @@ the dated GDD entry in the parent repo.
 - Secrets live only in a gitignored `.env`. Never put a key or token on a
   command line, in a settings file, or in an MCP `--env` flag — pass an
   environment-variable reference instead.
-- `.mcp.json` here still loads the **Unity editor relay MCP** (`unity`
-  server), which is **DEPRECATED** — Unity replaced the in-Editor MCP server
-  on 2026-07-20 with the standalone Unity CLI. The CLI is not installed on
-  this machine yet. Batchmode test runs need the editor **closed** (project
-  lock); pick one mode per task and don't fight it.
+- `.mcp.json` here loads the **Unity CLI** (`unity mcp`), which replaced the
+  deprecated in-Editor MCP relay on 2026-07-20. Install it with
+  `$env:UNITY_CLI_CHANNEL='beta'; irm https://public-cdn.cloud.unity3d.com/hub/prod/cli/install.ps1 | iex`
+  — user-scope, into `%LOCALAPPDATA%\Unity\bin`, added to the user PATH. It is
+  **beta-only**; no stable channel is published yet. Driving a running Editor
+  additionally needs `com.unity.pipeline` in the project (not installed yet).
+  Batchmode test runs need the editor **closed** (project lock); pick one mode
+  per task and don't fight it.
