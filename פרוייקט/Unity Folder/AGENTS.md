@@ -46,7 +46,7 @@ the dated GDD entry in the parent repo.
   deprecated in-Editor MCP relay on 2026-07-20. Install it with
   `$env:UNITY_CLI_CHANNEL='beta'; irm https://public-cdn.cloud.unity3d.com/hub/prod/cli/install.ps1 | iex`
   — user-scope, into `%LOCALAPPDATA%\Unity\bin`, added to the user PATH. It is
-  **beta-only**; no stable channel is published yet. Driving a running Editor
-  additionally needs `com.unity.pipeline` in the project (not installed yet).
+  **beta-only**; no stable channel is published yet. Driving a running Editor is surfaced by
+  `com.unity.pipeline`, now in the project at `0.6.0-exp.1` (experimental).
   Batchmode test runs need the editor **closed** (project lock); pick one mode
   per task and don't fight it.
