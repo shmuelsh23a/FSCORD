@@ -719,6 +719,75 @@ present numbers are placeholders and are far out.
 
 ---
 
+## 2026-09-06 — Coastal battlefield grammar: seaborne assaults on real terrain (IN DEVELOPMENT, F8 terrain pipeline; design calls flagged)
+
+The open-geodata baker (`tools/terrain/fetch_terrain.py`) learns a second
+assault grammar, and **overlord-2026 gets its baked region (`NormandyReal`)**
+— every registry event now has real terrain. The overland grammar is
+unchanged (Ardennes and Fulda re-derive layout-identical; a re-bake only adds
+the new `assault: "overland"` key).
+
+**The seaborne grammar** (`terrain.assault: "seaborne"` in the battle registry):
+- The threat side is open sea. The coastline comes from OSM
+  `natural=coastline`; the side the water is on is read from the way
+  direction (OSM draws land on the left, water on the right), and a bbox whose
+  sea lies on the defended side is refused rather than guessed at.
+- **Landing sites are where real roads reach the shore** (a road node within
+  5 % of the world of the coastline), major roads preferred, minor
+  (`unclassified`) roads admitted because real beach exits rarely rate
+  higher. **The landing is the coastline point itself**, not the road's end:
+  the corridor comes ashore on the beach, its next point is the road node
+  that reached it, then it follows that exit road inland exactly as an
+  overland corridor follows its entry road. Fewer than three exits → open
+  beach fills in along the shore. A site with no sea room north of it (shore
+  within 4 % of the world of the threat edge) is dropped, not fatal.
+- **Spawns sit 10 % of the world straight out to sea from each landing.**
+- The defended line sits 30 % of the world behind the shore's MEDIAN z
+  (clamped inside the world); control points are the land junctions inland
+  of the line's buffer; listening posts are the high ground on each lane
+  between the line and a point 4 % of the world behind that lane's own
+  landing — the bluffs over the beach, never the beach.
+- **Consequence of a diagonal coast (Normandy's runs +0.33 → +0.01 of the
+  world, west to east):** one objective depth means the western lanes are
+  ~2.5× longer than the eastern ones. Accepted for v1 — the sea side of the
+  map is where the bbox choice lives; a bbox rotated to the shore is the
+  fix, not a rule change.
+- **The sea is a plane at sea level:** the terrarium tiles carry bathymetry,
+  so the heightmap clamps everything below 0 m to 0 m. Inland ground at or
+  below sea level (the flooded lowlands behind Omaha) flattens with it,
+  which is what marsh looks like on this grid anyway.
+
+**Normandy as baked (measured, do not re-derive):** bbox 49.28,-0.98 →
+49.42,-0.78, threat N, 0–81 m relief at 60 world units; 5 spawn lanes, all
+at real beach exits (none open beach, none dropped), every spawn sampling
+0 m in the heightmap and every landing on the coastline; shore median at
++0.25 of the world; 5 control points, 2 listening posts at 64–68 m on the
+bluff tops. Balance probe on the shipped-daily pairing: difficulty 1.25 → 0.90 through the funnel (16 draws rejected), identical easing to Ardennes; first contact 35 s vs Ardennes' 54 s because the shore is nearer the line than an overland spawn band; wave 1 overruns the 4-tank line after 110 s with 5/11 attackers left (Ardennes: line holds 1/4, 0/11 left). Both
+grids are in `BalanceProbeTests` — quote them.
+
+**Design calls made here, flagged for the owner (none reverse a ruling):**
+1. **One geography per event, threat from the historic attacker's side** —
+   the same shape bulge already has (threat E for both sides). An Allied
+   overlord player therefore also defends the coast against a seaborne
+   threat; the story frames stay generic, as ruled 2026-07-18. A per-side
+   mirrored grammar ("beachhead defence", threat from inland) is possible
+   but is a new rule — propose it if the play-test wants it.
+2. **Tanks cross the offshore strip on the sea plane.** There is no water
+   rendering and no landing-craft abstraction yet; the spawn is close
+   (10 % of the world) so the drive is short. Water visuals / impassable
+   water are a separate feature, not part of the grammar.
+3. **reliefUnits 60 for Normandy** is a tuning placeholder like the F3
+   numbers — chosen so the bluffs read at the same exaggeration Ardennes
+   uses (≈9×).
+
+**Not yet done:** the production Remote Config payload still carries
+`terrainRegionId: ""` for overlord — redeploy per `tools/events/out/DEPLOY.md`
+before the event week, or production keeps playing overlord on generated
+battlefields (the client backfill only fills fields a payload predates, not
+empty ones — schema-upgrade rule 2026-07-20).
+
+---
+
 ## Shipped mechanics baseline (2015 → Stage A parity)
 
 Gesture fire missions (HE / concentrated / napalm / daisy cutter / mines / nuke),
