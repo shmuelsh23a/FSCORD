@@ -788,6 +788,41 @@ empty ones — schema-upgrade rule 2026-07-20).
 
 ---
 
+## 2026-09-07 — Click aim resolves against the relief (BUG FIX, no mechanics changed)
+
+Fire-mission aim (mouse click and every touch gesture) used to project the
+screen point onto a flat plane at ground height. On a real-terrain module
+that is wrong by the parallax of the 80° view: the shell landed on the far
+side of the hill the player clicked. Aim now goes through the `IGroundRelief`
+seam (`GroundRaycast`): the camera ray is marched from the world's height
+ceiling to its floor and bisected onto the surface, so **the same heightmap
+that places units answers aim** — no physics, no colliders, and the two can
+never disagree. Flat worlds short-circuit to the old plane intersection, and
+flat stretches of a relief map (Normandy's offshore sea plane) resolve to the
+same point the plane did.
+
+**Measured (do not re-derive):** on the Fulda Gap module (0–120 relief units)
+seen from the shipped camera, the flat-plane aim was off by **up to 36.8 m**
+across a 4×4 grid of view rays; the relief march lands **within 0.03 m** of
+Unity's own `TerrainCollider` on all 16 rays (the PlayMode test keeps that
+oracle, with a 2 m tolerance). The handoff's "~20 u on the highest hills"
+estimate was low.
+
+**Consequences, none reversing a ruling:**
+- **You hit what you see.** The march returns the first ground along the ray,
+  so a point behind a ridge cannot be clicked — the ridge is. That is the
+  intended reading of terrain blocking sight (2026-08 real-terrain entries).
+- The concentrated strike's circled radius is measured centre-to-rim
+  **horizontally** between the two relief hits, like every gameplay radius
+  (the seam's rule: relief is where positions live, not how they count).
+- **The camera keeps its 40-unit floor above the ground beneath it**, not
+  above y = 0. The old absolute floor put a fully zoomed-in camera inside the
+  120-unit Fulda and Ardennes hills, where no aim can resolve (the march
+  contract is "first ground along the ray from above"). The rig also yaws
+  about the relief point it looks at, not the plane point.
+
+---
+
 ## Shipped mechanics baseline (2015 → Stage A parity)
 
 Gesture fire missions (HE / concentrated / napalm / daisy cutter / mines / nuke),
