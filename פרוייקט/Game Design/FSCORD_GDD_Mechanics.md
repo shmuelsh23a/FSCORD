@@ -823,6 +823,51 @@ estimate was low.
 
 ---
 
+## 2026-09-08 — Water on the sea plane (IN DEVELOPMENT, F8 terrain pipeline; one design call flagged)
+
+The offshore strip of a seaborne module was flat brown ground. It now reads
+as sea, and the game can ask where the water is.
+
+**Where the sea is** comes from data the baker already writes, not a new
+field: a module with `assault: "seaborne"` has its sea flattened to **0 m
+elevation** (2026-09-06), so the sea plane is where 0 m falls in the
+heightmap's elevation range, lifted by the module's ground centre
+(`ReliefMap.TrySeaLevel`). Normandy: 0–81 m over 60 units → sea at y 0. An
+overland module, an older module without the key, or a seaborne range that
+starts above 0 m has no sea. Anything the baker flattened to sea level is
+water — the offshore strip and the flooded lowlands behind the beach alike
+(historically right for Omaha's hinterland, and what marsh looks like on
+this grid anyway).
+
+**The seam:** `IGroundRelief.IsWater(x, z)` — true where the ground sits at
+or within 0.05 units of the sea plane (the sea is baked exactly flat; only
+bilinear blending against a shore sample rises above it). Flat worlds and
+overland maps answer false everywhere. It is a query and a visual: positions
+still resolve through `HeightAt`, and **movement across water is
+unchanged** — tanks cross the offshore strip on the sea plane, as ruled in
+2026-09-06 call 2. Nothing here reverses that.
+
+**The visual:** a translucent plane at sea level + 0.15 over the whole world
+(URP Lit, transparent, smoothness 0.92 so the sun glints off it; falls back
+to the flat unlit sprite shader the fog and rings use). It casts no shadow
+and draws before every other transparent, so strips, mine discs, rings and
+fog on the far half of the world stay on top of it. No collider — nothing
+may raycast or collide with the water. Ground above sea level rises through
+it. A tank on the strip shows the same upper half it shows on land: the
+placeholder's centre sits at ground level, so the surface cuts it just above
+the midline exactly as the ground does ashore — placement, not a bug.
+
+**Design call flagged for the owner (not implemented, not a ruling):**
+1. **Landing craft.** With water visible, tanks driving on the sea read as
+   what they are — a placeholder. The honest next rule is: while
+   `IsWater` under an attacker, it moves at craft speed, cannot fire and
+   cannot be engaged by the tank line (only by fire missions), and becomes a
+   tank the moment it touches the beach. That is a new mechanic with a
+   balance impact on Normandy's 35 s first contact, so it needs your call
+   and a play-test; the seam is already in place for it.
+
+---
+
 ## Shipped mechanics baseline (2015 → Stage A parity)
 
 Gesture fire missions (HE / concentrated / napalm / daisy cutter / mines / nuke),
