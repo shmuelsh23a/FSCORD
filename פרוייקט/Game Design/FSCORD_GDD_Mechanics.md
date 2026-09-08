@@ -942,6 +942,26 @@ during play. Evidence log: `FASCORD Modern/docs/captures/2026-09-08-per-tank-xp-
 
 ---
 
+## 2026-09-08 — Maps are a content track: several per campaign (OWNER SCOPE NOTE)
+
+Owner statement: *"All this is for the test. The real product will have an
+entire set of maps (for each campaign, with multiple maps for
+diversification) we will make later."*
+
+- The three checked-in real-terrain modules are **test content** for the
+  pipeline, the campaign loop and the rules built on them (relief, aim,
+  sea plane, landing craft). Their geography is not final.
+- **Supersedes** the 2026-09-06 coastal-grammar call 1 in its "one
+  geography per event" wording: a campaign will draw from **several maps**;
+  the per-map rules (threat side, assault grammar, sea) stay exactly as
+  ruled. How a run picks among a campaign's maps (per mission, per run,
+  by story arc) is an open design question for the content track — not
+  ruled here.
+- Re-baking the test modules against fresh OpenStreetMap data is fine
+  (Fulda's control point 1 moved ~15 units on 2026-09-08 and was taken).
+
+---
+
 ## Shipped mechanics baseline (2015 → Stage A parity)
 
 Gesture fire missions (HE / concentrated / napalm / daisy cutter / mines / nuke),
