@@ -908,6 +908,40 @@ on the beach.*
 
 ---
 
+## 2026-09-08 — Per-tank XP verified live (VERIFICATION, no mechanics changed)
+
+The one part of the F3 economy never exercised is now exercised. Driven
+unattended in the editor: a 3-mission skirmish run with the AutoPlayer's
+artillery held for the first 110 s of every mission (new dev option
+`holdFireAtStart`) and slowed to one HE drop per 3 s afterwards, so the line's
+guns take kills and the mission is still won.
+
+**Observed (do not re-derive):**
+- **Kills credit** to the tank that lands the killing shot (`MissionKills`);
+  artillery kills never do. Mission 1: 5 M60A3 TTS scored 1, 2, 0, 2, 0
+  before the hold ended.
+- **XP lives and dies with the tank.** Two of the five died in mission 1 —
+  one of them with 2 kills, gone. The save after mission 1 carried the three
+  survivors at **1, 2, 0**.
+- **Veterans are fielded with the tier bonus.** Mission 2 fielded those
+  three at range **74 / rate 0.15 / accuracy 0.74** (×1.05) for the two with
+  XP and base **70 / 0.14 / 0.70** for the green one; after mission 2 they
+  stood at **3, 3, 2**, and mission 3 fielded the two at 3 XP at
+  **77 / 0.16 / 0.77** (×1.10). The run ended with the three at **6, 5, 3**
+  — one tank at the ruled +15 % cap after three missions of gun work.
+- **Balance note:** without artillery for 110 s the line lost 2 of 5 tanks
+  to wave 1 on a generated skirmish map — the "fire support is the main
+  tank-killer" ruling is visible in the numbers. Earlier full-support runs
+  (0.8 s drops) lost none and credited no gun kill at all, which is why this
+  was never seen before.
+
+**Recipe:** run mode, skirmish, `runMissionCount 3`; add `AutoPlayer` with
+`fireInterval 3`, `holdFireAtStart 110`; snapshot `fscord_run.json` whenever
+it changes and read `TankUnit.MissionKills` / `Definition` by reflection
+during play. Evidence log: `FASCORD Modern/docs/captures/2026-09-08-per-tank-xp-kills.log`.
+
+---
+
 ## Shipped mechanics baseline (2015 → Stage A parity)
 
 Gesture fire missions (HE / concentrated / napalm / daisy cutter / mines / nuke),
