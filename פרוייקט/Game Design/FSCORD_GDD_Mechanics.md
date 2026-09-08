@@ -857,14 +857,54 @@ it. A tank on the strip shows the same upper half it shows on land: the
 placeholder's centre sits at ground level, so the surface cuts it just above
 the midline exactly as the ground does ashore — placement, not a bug.
 
-**Design call flagged for the owner (not implemented, not a ruling):**
-1. **Landing craft.** With water visible, tanks driving on the sea read as
-   what they are — a placeholder. The honest next rule is: while
-   `IsWater` under an attacker, it moves at craft speed, cannot fire and
-   cannot be engaged by the tank line (only by fire missions), and becomes a
-   tank the moment it touches the beach. That is a new mechanic with a
-   balance impact on Normandy's 35 s first contact, so it needs your call
-   and a play-test; the seam is already in place for it.
+**Design call flagged for the owner:** landing craft — see the ruling
+below, made the same day.
+
+---
+
+## 2026-09-08 — Landing craft (RULING, owner; IMPLEMENTED)
+
+**Ruling (owner, 2026-09-08):** *an attacker on water moves at craft
+speed, cannot fire and cannot be engaged by the line, and becomes a tank
+on the beach.*
+
+**As implemented** (`LandingCraftRule`, `TankUnit.IsAfloat`,
+`ICombatant.Engageable`, the headless sim):
+- **Afloat** = spawned on `IsWater` and not yet ashore. A craft runs its
+  lane at **craft speed**, holds no target and fires nothing; the tank line's
+  target search skips it (`Engageable` false), so the line's early fire is
+  not spent on the strip. **Fire missions still hit it** — the player's
+  artillery is the only thing that reaches a craft at sea, which is the
+  Normandy fantasy exactly.
+- **Beaching is one way.** The first tick over ground above the sea plane
+  makes the unit a tank for good: definition speed, full hull, back on the
+  target list, `LandingCraftBeached` on the bus (a hook for VFX/analytics,
+  unused today). The shoreline never flickers a unit back to sea.
+- **Visual cue:** at sea the placeholder hull is half height (y × 0.5).
+  Nothing else — a proper craft mesh is an art-track item.
+- **The funnel judges the same rule.** `SimParams.isWater` + `craftSpeed`
+  give the headless sim the module's water; an attacker spawned at sea
+  neither fires nor is fired on until it lands, and moves at craft speed
+  until then. Balance grids for Normandy therefore change; quote
+  `BalanceProbeTests` afresh rather than the 2026-09-06 numbers.
+- **Craft speed is a tuning placeholder:** `landing.craftSpeed`, default
+  **4 units/s** (~0.45× a Sherman's road speed: 8 knots against 40 km/h).
+  Normandy's 90-unit offshore run takes ~22 s instead of ~10 s. Live-tunable
+  through `TuningService` like `mines.enemyDetectionChance`. **Flagged:**
+  the number is mine; the ruling did not set it.
+- **Attackers only, as ruled.** Only wave-spawned units embark; the
+  defending line never does, whatever cell it stands on (a line post on a
+  flooded cell logs a warning and fights from the surf). The headless sim
+  makes the same distinction.
+- **A craft at sea holds nothing.** It neither contests nor captures a
+  control point until it beaches — a unit that cannot fire or be shot should
+  not flip a beach point from the surf. (My call under the ruling; flagged.)
+- **Artillery still reaches it:** fire missions damage a craft like a tank,
+  and the AutoPlayer's artillery targets craft at sea (the target search
+  distinguishes direct fire from shells).
+- Not affected: mines and napalm at sea still work (a craft that hits a mine
+  is stunned like a tank); vision and hearing see a craft like a tank;
+  overland modules have no water and play exactly as before.
 
 ---
 
